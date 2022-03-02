@@ -34,7 +34,7 @@ sys_wait(void)
 }
 
 int
-sys_waitpid() {
+sys_waitpid(void) {
     int pid;
     int *status;
     int options;
