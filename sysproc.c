@@ -44,7 +44,7 @@ sys_waitpid(void) {
         return -1;
     if(argint(2, &options) < 0)
         return -1;
-    waitpid(pid, status, options);
+    return waitpid(pid, status, options);
 
 }
 
