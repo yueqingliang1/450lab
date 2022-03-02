@@ -26,8 +26,8 @@ sys_exit(void)
 int
 sys_wait(void)
 {
-    int* p;
-    if(argaddr(0, &p) < 0)
+    int *p;
+    if(argptr(0, (void*)&p, sizeof(int*)) < 0)
         return -1;
     return wait(p);
 
