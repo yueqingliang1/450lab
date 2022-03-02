@@ -322,7 +322,7 @@ wait(int *status)
 
 
 int
-wait(int pid, int *status, int options)
+waitpid(int pid, int *status, int options)
 {
     struct proc *p;
     int havekids;
