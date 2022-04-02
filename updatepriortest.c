@@ -4,8 +4,9 @@
 
 #include "types.h"
 #include "stat.h"
-//#include "user.h"
-#include "defs.h"
+#include "user.h"
+#include "stdio.h"
+
 
 int* NULL = 0x0;
 
@@ -13,9 +14,9 @@ int* NULL = 0x0;
 void longtask(void){
     int i;
     for(i = 0; i < 3000; i++) {
-        int i = i / 100;
+        int i = i % 100;
         if(i == 0) {
-            cprintf("%d", i);
+            printf(1, "100*n");
         }
     }
 }
