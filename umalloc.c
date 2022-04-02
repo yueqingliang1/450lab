@@ -44,7 +44,7 @@ free(void *ap)
 }
 
 static Header*
-morecore(uint nu)
+morecore(int nu)
 {
   char *p;
   Header *hp;
