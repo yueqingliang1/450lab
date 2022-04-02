@@ -15,7 +15,7 @@ void longtask(void){
     for(i = 0; i < 3000; i++) {
         int i = i / 100;
         if(i == 0) {
-            cprintf(i);
+            cprintf("%d", i);
         }
     }
 }
