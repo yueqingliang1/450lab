@@ -14,8 +14,7 @@ int* NULL = 0x0;
 void longtask(void){
     int i;
     for(i = 0; i < 3000; i++) {
-        int i = i % 100;
-        if(i == 0) {
+        if(i % 100 == 0) {
             printf(1, "100*n");
         }
     }
