@@ -88,6 +88,10 @@ allocproc(void)
 found:
   p->state = EMBRYO;
   p->pid = nextpid++;
+  p->prior_val = 10;
+  p->start_time = ticks;
+  p->finish_time = 0;
+  p->burst_time = 0;
 
   release(&ptable.lock);
 
@@ -198,6 +202,7 @@ fork(void)
   }
   np->sz = curproc->sz;
   np->parent = curproc;
+  np->prior_val = curproc->prior_val;
   *np->tf = *curproc->tf;
 
   // Clear %eax so that fork returns 0 in the child.
@@ -230,6 +235,8 @@ exit(int status)
   struct proc *curproc = myproc();
   struct proc *p;
   int fd;
+  int turnaround_time;
+  int waiting_time;
   curproc->exitStatus = status;
 
   if(curproc == initproc)
@@ -242,6 +249,12 @@ exit(int status)
       curproc->ofile[fd] = 0;
     }
   }
+  curproc->finish_time = ticks;
+  turnaround_time = curproc->finish_time - curproc->start_time;
+  waiting_time = turnaround_time - curproc->burst_time;
+  cprintf("Turnaround time: %d", turnaround_time);
+  cprintf("Waiting time: %d", waiting_time);
+
 
   begin_op();
   iput(curproc->cwd);
@@ -276,7 +289,6 @@ wait(int *status)
   struct proc *p;
   int havekids, pid;
   struct proc *curproc = myproc();
-
 
   acquire(&ptable.lock);
   for(;;){
@@ -375,10 +387,23 @@ waitpid(int pid, int *status, int options)
 //  - swtch to start running that process
 //  - eventually that process transfers control
 //      via swtch back to the scheduler.
+
+void
+update_prior(int prior_val)
+{
+    acquire(&ptable.lock);
+
+    struct proc *curproc = myproc();
+    curproc->prior_val = prior_val;
+
+    release(&ptable.lock);
+}
+
 void
 scheduler(void)
 {
   struct proc *p;
+  struct proc *ep;
   struct cpu *c = mycpu();
   c->proc = 0;
   
@@ -391,6 +416,26 @@ scheduler(void)
     for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
       if(p->state != RUNNABLE)
         continue;
+
+      int min_prior = 31;
+      for(ep = ptable.proc; ep < &ptable.proc[NPROC]; ep++){
+          if(ep->prior_val < min_prior) {
+              min_prior = ep->prior_val;
+          }
+      }
+      if(p->prior_val != min_prior)
+          continue;
+
+      for(ep = ptable.proc; ep < &ptable.proc[NPROC]; ep++){
+          if(p->pid == ep->pid) {
+              p->prior_val += 1;
+          }
+          else{
+              p->prior_val -= 1;
+          }
+      }
+
+      p->burst_time += 1;
 
       // Switch to chosen process.  It is the process's job
       // to release ptable.lock and then reacquire it

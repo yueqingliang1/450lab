@@ -5,6 +5,7 @@
 int* NULL = 0x0;
 
 int main(int argc, char *argv[]) {
+
     if(fork() == 0) {
         int pid;
         if((pid = fork()) == 0) {

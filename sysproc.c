@@ -111,3 +111,17 @@ sys_uptime(void)
   release(&tickslock);
   return xticks;
 }
+
+void
+sys_updateprior(void)
+{
+    int prior_val;
+
+    if(argint(0, &prior_val) < 0)
+        return -1;
+    if(prior_val < 0 || prior_val > 31)
+        return -1;
+
+    return updateprior(prior_val);
+
+}
