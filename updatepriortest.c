@@ -2,7 +2,6 @@
 // Created by Yueqing Liang on 4/1/22.
 //
 
-#include "stdio.h"
 #include "types.h"
 #include "stat.h"
 #include "user.h"
