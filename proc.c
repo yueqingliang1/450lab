@@ -418,12 +418,15 @@ scheduler(void)
       if(p->state != RUNNABLE)
         continue;
 
-      /*
+
       int min_prior = 31;
       for(ep = ptable.proc; ep < &ptable.proc[NPROC]; ep++){
-          if(ep->prior_val < min_prior) {
-              min_prior = ep->prior_val;
+          if(ep->state == RUNNABLE){
+              if(ep->prior_val < min_prior) {
+                  min_prior = ep->prior_val;
+              }
           }
+
       }
       if(p->prior_val != min_prior)
           continue;
@@ -436,7 +439,7 @@ scheduler(void)
               p->prior_val -= 1;
           }
       }
-      */
+
 
       p->burst_time += 1;
 
