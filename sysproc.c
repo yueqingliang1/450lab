@@ -112,7 +112,7 @@ sys_uptime(void)
   return xticks;
 }
 
-void
+int
 sys_updateprior(void)
 {
     int prior_val;
