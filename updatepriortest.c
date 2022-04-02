@@ -5,7 +5,7 @@
 #include "types.h"
 #include "stat.h"
 #include "user.h"
-#include "stdio.h"
+#include "defs.h"
 
 int* NULL = 0x0;
 
@@ -15,7 +15,7 @@ void longtask(void){
     for(i = 0; i < 3000; i++) {
         int i = i / 100;
         if(i == 0) {
-            printf("%d", i);
+            cprintf("%d", i);
         }
     }
 }
