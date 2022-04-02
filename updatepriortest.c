@@ -10,17 +10,18 @@ int* NULL = 0x0;
 
 
 void longtask(){
+    int i;
     for(i = 0; i < 3000; i++) {
         int i = i / 100;
         if(i == 0) {
-            printf();
+            printf(i);
         }
     }
 }
 
 
 int main(int argc, char *argv[]) {
-
+    int pid;
     updateprior(15);
     pid = fork();
     if (pid == 0) {
