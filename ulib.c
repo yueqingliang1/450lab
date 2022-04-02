@@ -34,7 +34,7 @@ strlen(const char *s)
 }
 
 void*
-memset(void *dst, int c, uint n)
+memset(void *dst, int c, int n)
 {
   stosb(dst, c, n);
   return dst;
