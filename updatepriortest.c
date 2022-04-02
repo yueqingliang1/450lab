@@ -22,7 +22,7 @@ void longtask(void){
 }
 
 
-int main(int argc, char *argv[]) {
+int main(void) {
     int pid;
     updateprior(15);
     pid = fork();
@@ -33,4 +33,5 @@ int main(int argc, char *argv[]) {
     } else {
         longtask();
     }
+    return 0;
 }
