@@ -15,7 +15,7 @@ void longtask(void){
     int i;
     for(i = 0; i < 3000; i++) {
         if(i % 100 == 0) {
-            printf(1, "100*n");
+            printf(1, "pid: %d", pid);
         }
     }
 }
