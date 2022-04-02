@@ -389,7 +389,7 @@ waitpid(int pid, int *status, int options)
 //      via swtch back to the scheduler.
 
 int
-update_prior(int prior_val)
+updateprior(int prior_val)
 {
     acquire(&ptable.lock);
 
