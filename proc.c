@@ -397,6 +397,7 @@ update_prior(int prior_val)
     curproc->prior_val = prior_val;
 
     release(&ptable.lock);
+    return 0;
 }
 
 void
