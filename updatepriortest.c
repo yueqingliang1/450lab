@@ -4,7 +4,7 @@
 
 #include "types.h"
 #include "stat.h"
-#include "user.h"
+//#include "user.h"
 #include "defs.h"
 
 int* NULL = 0x0;
