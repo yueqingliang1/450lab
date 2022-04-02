@@ -404,7 +404,7 @@ void
 scheduler(void)
 {
   struct proc *p;
-  struct proc *ep;
+  //struct proc *ep;
   struct cpu *c = mycpu();
   c->proc = 0;
   
